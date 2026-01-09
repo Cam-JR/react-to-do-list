@@ -1,42 +1,51 @@
-import { useState } from "react";
-import styles from "./TodoFilters.module.css"
+import { useEffect, useState } from "react";
+import { COMPLETED_FILTERS, PRIORITY_FILTERS } from "../../constants/filters";
+import styles from "./TodoFilters.module.css";
 
+export function TodoFilters({ onFilter }) {
+  const [completed, setCompleted] = useState("all");
+  const [priority, setPriority] = useState("all");
 
-export function TodoFilters(){
- 
-    const [completed, setCompleted] = useState("all");
-    const [priority, setPriority] = useState("all");
+  useEffect(() => {
+    const filters = {
+      completed: COMPLETED_FILTERS[completed].value,
+      priority: PRIORITY_FILTERS[priority].value,
+    };
 
-    return (
-        <section>
-            <h3>Filters</h3>
-        
-            <div className={styles.Filters}>
-                <label htmlFor="completed">Completed</label>
-                <select 
-                    id="completed" 
-                    defaultValue={completed} 
-                    onChange={(event) => setCompleted(event.target.value)}
-                >
-                    <option value="all">All</option>
-                    <option value="action">Action</option>
-                    <option value="completed">Completed</option>
-                </select>
+    onFilter(filters);
+  }, [completed, priority]);
 
-                <label htmlFor="priority">Priority</label>
-                <select 
-                    id="priority" 
-                    defaultValue={priority}
-                    onChange={(event) => setPriority(event.target.value)}
-                >
-                    <option value="all">All</option>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-            </div>
-        
-        </section>
-    );
+  return (
+    <section>
+      <h3>Filters</h3>
+
+      <div className={styles.Filters}>
+        <label htmlFor="completed">Completed</label>
+        <select
+          id="completed"
+          defaultValue={completed}
+          onChange={(event) => setCompleted(event.target.value)}
+        >
+          {Object.entries(COMPLETED_FILTERS).map(([key, { label }]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </select>
+
+        <label htmlFor="priority">Priority</label>
+        <select
+          id="priority"
+          defaultValue={priority}
+          onChange={(event) => setPriority(event.target.value)}
+        >
+          {Object.entries(PRIORITY_FILTERS).map(([key, { label }]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </div>
+    </section>
+  );
 }
-
