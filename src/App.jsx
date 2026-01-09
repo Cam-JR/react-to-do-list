@@ -8,7 +8,7 @@ const TODOS_DEFAULT = [
     id: "1",
     name: "Buy an Ice Cream",
     description: "The white one with chocolate",
-    deadline: "2026-01-09",
+    deadline: "2025-02-09",
     priority: "low",
     completed: false,
   },
@@ -16,7 +16,7 @@ const TODOS_DEFAULT = [
     id: "2",
     name: "Sell old MacBook Pro 2025",
     description: "Try to sell it on OLX",
-    deadline: "2026-01-28",
+    deadline: "2025-02-28",
     priority: "high",
     completed: false,
   },
@@ -24,7 +24,7 @@ const TODOS_DEFAULT = [
     id: "3",
     name: "Charge Powerbank",
     description: "For the next travelling",
-    deadline: "2026-01-15",
+    deadline: "2025-02-15",
     priority: "medium",
     completed: true,
   },
@@ -48,6 +48,12 @@ function App() {
     ]);
   }
 
+  function handleUpdate(id, newTodo) {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => (todo.id === id ? newTodo : todo))
+    );
+  }
+
   return (
     <div className={styles.App}>
       <header className={styles.Header}>
@@ -57,7 +63,7 @@ function App() {
 
       <div className={styles.AppContainer}>
         <TodoForm onCreate={handleCreate} />
-        <TodoList todos={todos} />
+        <TodoList todos={todos} onUpdate={handleUpdate} />
       </div>
     </div>
   );

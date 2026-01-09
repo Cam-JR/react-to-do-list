@@ -1,3 +1,5 @@
+// Colores para high, medium, none, low
+
 export const PRIORITIES = {
   none: { label: "None", color: "" },
   low: { label: "Low", color: "Teal" },
