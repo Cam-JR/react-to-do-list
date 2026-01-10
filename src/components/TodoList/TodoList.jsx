@@ -5,16 +5,15 @@ export function TodoList({ todos, onUpdate, onDelete }) {
   return (
     <section>
       <h3>To-Do's</h3>
-      {/* Mensaje cuando no hay to-do's */}
       {!todos.length && <p>Sorry, you don't have any to-do's</p>}
 
       <ul className={styles.TodoList}>
         {todos.map((todo) => (
-          <TodoListItem 
-            key={todo.id} 
-            todo={todo} 
-            onUpdate={onUpdate} 
-            onDelete={onDelete} 
+          <TodoListItem
+            key={todo.id}
+            todo={todo}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
           />
         ))}
       </ul>
